@@ -1,3 +1,4 @@
+Папку local скопировать в корень
 Создть раздел /rss
 Вставить компонент 
 <?$APPLICATION->IncludeComponent("rssdz","",array("IBLOCK_ID"=>''));?>
