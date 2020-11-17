@@ -13,6 +13,7 @@ class rssImport extends CBitrixComponent{
         //$this->arResult['item']=$this->arParams['arrUser'];
         //$this->includeComponentTemplate();
         //проверим есть ли блок с сущностью, если нет то создадим
+        $IBLOCK_ID = $arParams['IBLOCK_ID'];
         $result = \Bitrix\Highloadblock\HighloadBlockTable::getList(array('filter'=>array('=NAME'=>"CategoryBand")));
         if(!$row = $result->fetch()){
             $arLangs = Array(
