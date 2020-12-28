@@ -10,8 +10,6 @@ use Bitrix\Main\Entity;
 class rssImport extends CBitrixComponent{
   public function executeComponent(){
     try{
-        //$this->arResult['item']=$this->arParams['arrUser'];
-        //$this->includeComponentTemplate();
         //проверим есть ли блок с сущностью, если нет то создадим
         $IBLOCK_ID = $arParams['IBLOCK_ID'];
         $result = \Bitrix\Highloadblock\HighloadBlockTable::getList(array('filter'=>array('=NAME'=>"CategoryBand")));
@@ -91,7 +89,7 @@ class rssImport extends CBitrixComponent{
         while ($arRow = $result->Fetch()){
             $HelpList[$arRow['UF_NAME']] = $arRow['ID'];
         }
-        
+
         //откуда парсим
         $url = 'https://lenta.ru/rss';
         $content = simplexml_load_file($url);
@@ -104,8 +102,8 @@ class rssImport extends CBitrixComponent{
         $arSelect = Array("ID", "IBLOCK_ID", "NAME","PROPERTY_*");
         $arFilter = Array("IBLOCK_ID"=>IntVal($IBLOCK_ID), "ACTIVE"=>"Y", ">=PROPERTY_date"=>trim(CDatabase::CharToDateFunction(date("d.m.Y H:i:s",(time()-86400)),"\'"));
         $res = CIBlockElement::GetList(Array(), $arFilter, false, false, $arSelect);
-        while($ob = $res->GetNextElement()){ 
-         $arFields = $ob->GetFields();  
+        while($ob = $res->GetNextElement()){
+         $arFields = $ob->GetFields();
          $arProps = $ob->GetProperties();
          $prop=array();
          foreach($arProps as $code=>$val){
@@ -126,9 +124,9 @@ class rssImport extends CBitrixComponent{
                         'UF_USER_ID' => $userID,
                     );
                     $result = $entityDataClass::add($arFields);
-                    if($result->isSuccess()){                    
+                    if($result->isSuccess()){
                         $catID = $result->getId();
-                    } 
+                    }
                 }
                 //добавим новость
                 $PROP=array(
